@@ -23,4 +23,3 @@ inflo_mixed <- lm_data00 %>%
 inflo_sum <- inflo_mixed %>%
   group_by(PlantID) %>%
   summarise(flower = sum(mixed))
-
