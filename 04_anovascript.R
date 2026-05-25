@@ -4,60 +4,49 @@ library(tidyverse)
 library(lme4)
 library(MuMIn)
 library(ggsignif)
+library(broom)
+set.seed(123)
 
-buckwheat <- read.csv("data/CollectedData_v4.csv") %>%
+## Import Data and Cleanup ====
+buckwheat_data <- read.csv("data/CollectedData_v6.csv") %>%
   drop_na(DevRate)
-head(buckwheat)
+head(buckwheat_data)
 
-## Mature Seed Set LM & ANOVA
-DevRate_aov <- lm(DevRate ~ ForestArea + Variety + Morph + HerbivRate, data = buckwheat)
-summary(DevRate_aov)
-DevRate_anova <- anova(DevRate_aov)
-DevRate_anova
+### Remove eDNA replicates ====
+buckwheat_data$PlantID <- str_sub(buckwheat_data$ID, end=-4) #Remove eDNA suffix
+buckwheat <- buckwheat_data %>% #Remove duplicates
+  select(PlantID, everything(), -ID, -Type) %>% #remove eDNA ID and type columns and Move PlantID to front
+  distinct() #remove duplicated rows
 
-## Model Selection
-DevRate_aov2 <- lm(DevRate ~ ForestArea*Variety*Morph*HerbivRate, data = buckwheat)
-m1<-dredge(DevRate_aov2,rank="AICc")
 
 ## Mature Seed Set LM & ANOVA (multi-level interactions)
-DevRate_aov2.1 <- lm(DevRate ~ ForestArea*Variety*Morph, data = buckwheat)
-summary(DevRate_aov2.1)
-DevRate_anova1 <- anova(DevRate_aov2.1)
-DevRate_anova1
-
-## SeedSet LM & ANOVA
-seedset_aov <- lm(SeedSet ~ ForestArea+Variety+Morph+HerbivRate, data = buckwheat)
-summary(seedset_aov)
-seedset_anova <- anova(seedset_aov)
-seedset_anova
+DevRate_LM <- lm(DevRate ~ ForestArea+Variety+Morph, data = buckwheat)
+summary(DevRate_LM)
+DevRate_anova <- anova(DevRate_LM)
+DevRate_anova
 
 ## SeedSet LM & ANOVA (multi-level interactions)
-seedset_aov1 <- lm(SeedSet ~ ForestArea*Morph*Variety, data = buckwheat)
-summary(seedset_aov1)
-seedset_anova1 <- anova(seedset_aov1)
-seedset_anova1
+seedset_LM <- lm(SeedSet ~ ForestArea+Morph+Variety, data = buckwheat)
+summary(seedset_LM)
+seedset_anova <- anova(seedset_LM)
+seedset_anova
 
 ## Herbivory (multi-level interactions)
-herbiv_aov <- lm(HerbivRate ~ ForestArea * Morph * Variety, data = buckwheat)
-summary(herbiv_aov)
-herbrate_anova <- anova(herbiv_aov)
+herbiv_LM <- lm(HerbivRate ~ ForestArea * Morph * Variety, data = buckwheat)
+summary(herbiv_LM)
+herbrate_anova <- anova(herbiv_LM)
 herbrate_anova
 
-## Herbivory (multi-level interactions)
-herbiv_aov1 <- lm(HerbivRate ~ ForestArea * Morph * Variety, data = buckwheat)
-summary(herbiv_aov1)
-herbrate_anova1 <- anova(herbiv_aov1)
-herbrate_anova1
-
 ## Site Yield LM & ANOVA
-siteyield_aov <- lm(SiteYield ~ ForestArea + Height + Morph + HerbivRate, data = buckwheat)
-summary(siteyield_aov)
-anova(siteyield_aov)
+siteyield_LM <- lm(SiteYield ~ ForestArea + Variety + HerbivRate + Morph, data = buckwheat)
+summary(siteyield_LM)
+siteyield_anova <- anova(siteyield_LM)
+siteyield_anova
 
-# Wrtite csv
-write.csv(DevRate_anova, "output/DevRate_AOV1.csv")
-write.csv(DevRate_anova1, "C:/Users/M9NRC/Desktop/Schoolwork/Statistics/DevRate_multi.csv")
-write.csv(seedset_anova, "C:/Users/M9NRC/Desktop/Schoolwork/Statistics/SeedSet_AOV1.csv")
-write.csv(seedset_anova1, "C:/Users/M9NRC/Desktop/Schoolwork/Statistics/SeedSet_multi.csv")
-write.csv(herbrate_anova, "C:/Users/M9NRC/Desktop/Schoolwork/Statistics/HerbrateAOV1.csv")
-write.csv(herbrate_anova1, "C:/Users/M9NRC/Desktop/Schoolwork/Statistics/HerbrateAOV_multi.csv")
+# Write csv
+write.csv(DevRate_anova, "output/AOVTables/DevRate_AOV1.csv")
+write.csv(seedset_anova, "output/AOVTables/SeedSet_AOV1.csv")
+write.csv(herbrate_anova, "output/AOVTables/HerbRate_AOV1.csv")
+write.csv(siteyield_anova, "output/AOVTables/SiteYield_AOV1.csv")
+
+

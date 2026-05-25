@@ -5,10 +5,17 @@ library(lme4)
 library(MuMIn)
 library(ggsignif)
 
-buckwheat <- read.csv("data/CollectedData_v4.csv")
-head(buckwheat)
+buckwheat_data <- read.csv("data/CollectedData_v6.csv") %>%
+  drop_na(DevRate)
+head(buckwheat_data)
 
-## Mature Seed Set x Forest Area Plot
+### Remove eDNA replicates ====
+buckwheat_data$PlantID <- str_sub(buckwheat_data$ID, end=-4) #Remove eDNA suffix
+buckwheat <- buckwheat_data %>% #Remove duplicates
+  select(PlantID, everything(), -ID, -Type) %>% #remove eDNA ID and type columns and Move PlantID to front
+  distinct() #remove duplicated rows
+
+## Mature Seed Set x Forest Area Plot ====
 devrate_plot <- ggplot(data = buckwheat, aes(x = ForestArea, y = DevRate)) +
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ x, se = TRUE, colour = "#E76D11") +
@@ -16,7 +23,7 @@ devrate_plot <- ggplot(data = buckwheat, aes(x = ForestArea, y = DevRate)) +
   theme_classic(base_size=28)
 devrate_plot
 
-## Total Seed Set x Forest
+## Total Seed Set x Forest ====
 seedset_plot <- ggplot(data = buckwheat, aes(x = ForestArea, y = SeedSet)) +
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ x, se = TRUE, colour = "#3F73BF") +
@@ -24,34 +31,39 @@ seedset_plot <- ggplot(data = buckwheat, aes(x = ForestArea, y = SeedSet)) +
   theme_classic(base_size=28)
 seedset_plot
 
-## Mature Seed Set x Variety Averages
-dev_avg <- data.frame(
-  Var = c("Horominori", "Kitawase"),
-  Avg = c(0.0276, 0.0366666666666667))
-## Variety x DevRate Plot
-dev_var <- ggplot(data = buckwheat, aes(x = Variety, y = DevRate)) +
-  geom_col(data = dev_avg, aes(x = Var, y = Avg, fill = Var), width = 0.3,
-           colour = "black", linewidth = .6) +
-  scale_fill_manual(values = c("Horominori" = "#9B287B", "Kitawase" = "#CC949D")) +
-  geom_point() +
-  ## Remove gap between axis and plot
-  scale_y_continuous(expand = c(0,0)) +
-  geom_signif(comparisons = list(c("Horominori","Kitawase")), annotations = "*", 
-              y_position = 0.085, textsize = 10, vjust = 0.5) +
-  coord_cartesian(ylim = c(0,0.095))+
-  labs(y = "Mature Seed Set") +
-  theme_classic(base_size=28) +
-  theme(legend.position = "none", axis.text.x = element_text(colour = "black"),
-        axis.text.y = element_text(colour = "black"))
-dev_var
+# ## Mature Seed Set x Variety Averages
+# dev_avg <- buckwheat %>% #Variety Mean for dev rate
+#   select(Variety, DevRate) %>%
+#   group_by(Variety) %>%
+#   summarise(Avg = mean(DevRate)/100)
+# 
+# 
+# ## Variety x DevRate Plot ====
+# dev_var <- ggplot(data = buckwheat, aes(x = Variety, y = DevRate/100)) +
+#   geom_col(data = dev_avg, aes(x = Variety, y = Avg, fill = Variety), width = 0.3,
+#            colour = "black", linewidth = .6) +
+#   scale_fill_manual(values = c("Horominori" = "#9B287B", "Kitawase" = "#CC949D")) +
+#   geom_point(size = 1) +
+#   ## Remove gap between axis and plot
+#   scale_y_continuous(expand = c(0,0)) +
+#   geom_signif(comparisons = list(c("Horominori","Kitawase")), annotations = "*", 
+#               y_position = 0.085, textsize = 10, vjust = 0.5) +
+#   coord_cartesian(ylim = c(0,0.095))+
+#   labs(y = "Mature Seed Set") +
+#   theme_classic(base_size=28) +
+#   theme(legend.position = "none", axis.text.x = element_text(colour = "black"),
+#         axis.text.y = element_text(colour = "black"))
+# dev_var
 
-## Herb_Variety Averages For Bar Plot
-herb_av <- data.frame(
-  Var = c("Horominori", "Kitawase"),
-  Avg = c(83.374, 59.85778))
+## Herb_Variety Averages For Bar Plot ====
+herb_avg <- buckwheat %>% #Variety Mean for herb rate
+  select(Variety, HerbivRate) %>%
+  group_by(Variety) %>%
+  summarise(Avg = mean(HerbivRate))
+
 ## Variety x Herbivory Plot
 herbiv_graph <- ggplot(data = buckwheat, aes(x = Variety, y = HerbivRate)) +
-  geom_col(data = herb_av, aes(x = Var, y = Avg, fill = Var), width = 0.3,
+  geom_col(data = herb_avg, aes(x = Variety, y = Avg, fill = Variety), width = 0.3,
            colour = "black", linewidth = 1) +
   scale_fill_manual(values = c("Horominori" = "#9B287B", "Kitawase" = "#CC949D")) +
   geom_point() +
@@ -67,21 +79,21 @@ herbiv_graph <- ggplot(data = buckwheat, aes(x = Variety, y = HerbivRate)) +
 herbiv_graph
 
 ## Site Yield x Forest Area Plot
-siteyield_plot <- ggplot(data = buckwheat, aes(x = ForestArea, y = SiteYield)) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = y ~ x, se = TRUE)
-siteyield_plot
+# siteyield_plot <- ggplot(data = buckwheat, aes(x = ForestArea, y = SiteYield)) +
+#   geom_point() +
+#   geom_smooth(method = "lm", formula = y ~ x, se = TRUE)
+# siteyield_plot
 
 ## Site Yield vs Seed Set
-ggplot(data = buckwheat, aes(x = ForestArea)) +
-  geom_col(aes(y = SiteYield)) +
-  geom_point(aes(y = DevRate * 2000)) +
-  scale_y_continuous(name = "SiteYield (Bar)", 
-                     sec.axis = sec_axis(transform = ~./2000, 
-                                         name = "DevRate (Scatter)")) +
-  theme_classic()
+# ggplot(data = buckwheat, aes(x = ForestArea)) +
+#   geom_col(aes(y = SiteYield)) +
+#   geom_point(aes(y = DevRate * 2000)) +
+#   scale_y_continuous(name = "SiteYield (Bar)", 
+#                      sec.axis = sec_axis(transform = ~./2000, 
+#                                          name = "DevRate (Scatter)")) +
+#   theme_classic()
 
-## Abundance 
+## Abundance ====
 abun <- read.csv("data/InsectSortingSheet_abun.csv")
 abun_arr <- arrange(abun, desc(Abun_r)) %>%
   mutate(Taxon = factor(Taxon, levels = Taxon))
@@ -102,8 +114,10 @@ rel_abun <- ggplot(data = abun_arr, aes(x = Taxon, y = Abun_r, fill = Order)) +
         legend.background = element_rect(colour = "black"))
 rel_abun
 
-##VarPar Plot, Relative importance
-vartpart <- read.csv("output/VarPar_table.csv")
+# Variable Partition Bars ====
+vartpart <- read.csv("output/AOVTables/DevRate_AOV1.csv") %>%
+  mutate(Factor = X) %>%
+  select(Factor, everything(), -X)
 head(vartpart)
 vartpart_arr <- arrange(vartpart, Factor)
 #Arrange Factors so that residue is on the bottom
@@ -128,6 +142,7 @@ vartpart_arr3$Factor <- factor(
                                    "ForestAreaMorph", "ForestAreaVariety", 
                                    "MorphVariety", "ForestAreaMorphVariety","Residuals"))
 view(vartpart_arr3)
+
 #Stacked Elements plot (GreenPurplOrange)
 vartpart_plot <- ggplot(data = vartpart_arr3, aes(x= VarPar, y= percent, fill = Factor)) +
   geom_col(position = "fill", width = 0.3, colour = "black", linewidth = .75) +
@@ -140,18 +155,18 @@ vartpart_plot <- ggplot(data = vartpart_arr3, aes(x= VarPar, y= percent, fill = 
 vartpart_plot
 
 
-# ggsave
-ggsave("output/devrate_plot.png", plot = devrate_plot, 
+# ggsave ====
+ggsave("figs/devrate_plot.png", plot = devrate_plot, 
        width = 2400 , height = 1600, units = "px", dpi = 300)
-ggsave("output/seedset_plot.png", plot = seedset_plot, 
+ggsave("figs/seedset_plot.png", plot = seedset_plot, 
        width = 2400 , height = 1600, units = "px", dpi = 300)
-ggsave("output/devvar_plot.png", plot = dev_var, 
+ggsave("figs/devvar_plot.png", plot = dev_var, 
        width = 2400 , height = 1600, units = "px", dpi = 300)
-ggsave("output/herbiv_plot.png", plot = herbiv_graph, 
+ggsave("figs/herbiv_plot.png", plot = herbiv_graph, 
        width = 2400 , height = 1600, units = "px", dpi = 300)
-ggsave("output/relabun_plot.png", plot = rel_abun, 
+ggsave("figs/relabun_plot.png", plot = rel_abun, 
        width = 2400 , height = 1600, units = "px", dpi = 300)
-ggsave("output/vartpart_plot.png", plot = vartpart_plot, 
+ggsave("figs/vartpart_plot.png", plot = vartpart_plot, 
        width = 1200 , height = 800, units = "px", dpi = 300)
-ggsave("output/vartpart_plot2.png", plot = vartpart_plot, 
+ggsave("figs/vartpart_plot2.png", plot = vartpart_plot, 
        width = 1500, height = 1100, units = "px", dpi = 300)
