@@ -56,21 +56,9 @@ community_reads2 <- community_reads2 %>%
 
 # Group and Arranging samples by Site
 community_reads3 <- community_reads2 %>%
-  select(TrimmedSamples, everything()) %>%
+  select(TrimmedSamples, everything()) %>% #<- making sample names first column
   group_by(Site) %>%
   column_to_rownames(var = "TrimmedSamples")
-
-# Import to Sample Data
-SMT_Data <- community_reads3 %>%
-  select(Site, Morph, Type) %>%
-  rownames_to_column(var = "ID")
-
-# Adding Yield Data, etc.
-sample_data <- read.csv("data/CollectedData_v5.csv") %>%
-  column_to_rownames(var = "ID")
-
-dat <- sample_data(sample_data) # <- Imports as Phyloseq sample data table
-
 
 # Import to OTU Table
 community_otu <- community_reads3 %>% 
@@ -80,38 +68,30 @@ otu <- otu_table(community_otu, taxa_are_rows = FALSE)
 # Import to Taxonomy Table
 edna_taxon <- read.csv("data/Neo2024_edna_taxon_v2.csv") %>%
   column_to_rownames(var = "query") %>%
+  select(-No) %>%
   filter(phylum == "Arthropoda" & class != "") # Remove human and fungi reads, only arthropods with identified class
 tax <- tax_table(edna_taxon)
 rownames(tax) <- rownames(edna_taxon)
 colnames(tax) <- colnames(edna_taxon)
+
+# Import Sample Information
+sample_data <- read.csv("data/CollectedData_v5.csv") %>%
+  column_to_rownames(var = "ID")
+dat <- sample_data(sample_data) # <- Imports as Phyloseq sample data table
 
 # Combine into phyloseq object
 buckwheat_raw <- phyloseq(otu, tax, dat)
 buckwheat_raw
 
 # Pre-Processing
-buckwheat_filtered <- prune_samples(sample_sums(buckwheat_raw)>0, buckwheat_raw)
-
-# Presence Absence
-## Presence/Absence Matrix
-community_pa <- (community_otu > 0) * 1L
-
-otu_pa <- otu_table(community_pa, taxa_are_rows = FALSE)
-
-buckwheat_pa <- phyloseq(otu_pa, tax, dat)
-buckwheat_pa
-buckwheat_filtered_pa <- prune_samples(sample_sums(buckwheat_pa)>0, buckwheat_pa)
-
-# Ordination Filtered ========================
-comm60 <- community_otu %>%
-  select(-ASV60)
-otu60 <- otu_table(comm60 ,taxa_are_rows = FALSE)
-ordin60 <- phyloseq(otu60, tax, dat)
-ordin_filt1 <- prune_samples(sample_sums(ordin60)>6, ordin60)
-
+buckwheat_filtered <- prune_samples(sample_sums(buckwheat_raw)>0, buckwheat_raw) # removing samples with low total reads
+buckwheat_filtered1 <- subset_samples(buckwheat_filtered, Site != "Blank") #removing blanks
+buckwheat_filtered2 <- subset_samples(buckwheat_filtered1, !sample_names(buckwheat_filtered1) %in% #Filtering Out Suspected Cases of Contamination i.e. insect falling directly into the cup
+                                        c("F_P02_L1", "F_P02_L2","E_T03_L1", "E_T03_L2",
+                                          "A_P01_L1", "A_P01_L2", "F_T02_L1", "F_T02_L2"))
+# Ordination========================
 # NMDS Ordination
-ordin_filt <- prune_samples(sample_sums(buckwheat_filtered)>6, buckwheat_filtered)
-nmds_filt <- ordinate(ordin_filt1, "NMDS", "bray", autotransform = F)
+nmds_filt <- ordinate(buckwheat_filtered2, "NMDS", "bray", autotransform = F)
 plot(nmds_filt)
 nmds_result_filt <- as.data.frame(scores(nmds_filt,display=c("sites")))
 spscrs_filt <- as.data.frame(scores(nmds_filt,display=c("species")))
@@ -123,7 +103,7 @@ dat2 <- sample_data %>%
   rownames_to_column(var = "Samples")
 nmds_result_comb <- left_join(nmds_result_filt2, dat2, by = "Samples")
 
-#Convex Hull
+#Convex Hull (adding the polygon shape to NMDS)
 nmds_hull <- nmds_result_comb %>%
   group_by(Site) %>%
   slice(chull(NMDS1,NMDS2))
@@ -154,15 +134,11 @@ spscrs_plot_filt
 ggsave("output/edna_filt_spscores.png",
        plot = spscrs_plot_filt, width = 2400, height = 1600, units = "px", dpi = 300)
 
-
+# Fix Anova!
 # Adonis ==================================
-# Filtering out Blanks and NA values (OTU)
-adonis_otu <- comm60 %>%
-  filter(rowSums(comm60) != 0)
 
-# Filtering Out Blanks (Sample data)
-adonis_dat <- sample_data %>%
-  filter(rownames(sample_data) %in% rownames(adonis_otu))
+adonis_otu <- otu_table(buckwheat_filtered2)
+adonis_dat <- sample_data(buckwheat_filtered2)
 
 # Permanova Analysis
 permanova2 <- adonis2(adonis_otu ~ Site, adonis_dat, perm=9999, by="terms")
