@@ -15,7 +15,7 @@ library(fuzzyjoin)
 # Import to Phyloseq ===========
 
 # Community Read Data
-set.seed(11) # set seed to get reproducible ordination values
+set.seed(123) # set seed to get reproducible ordination values
 community_reads <- read.csv("data/Neo2024_edna_community.csv")
 
 # Filtering Blanks and Samples
@@ -134,14 +134,14 @@ spscrs_plot_filt
 ggsave("output/edna_filt_spscores.png",
        plot = spscrs_plot_filt, width = 2400, height = 1600, units = "px", dpi = 300)
 
-# Fix Anova!
 # Adonis ==================================
-
-adonis_otu <- otu_table(buckwheat_filtered2)
-adonis_dat <- sample_data(buckwheat_filtered2)
+adonis_otu <- otu_table(buckwheat_filtered2) %>%
+  data.frame()
+adonis_dat <- sample_data(buckwheat_filtered2) %>%
+  data.frame()
 
 # Permanova Analysis
-permanova2 <- adonis2(adonis_otu ~ Site, adonis_dat, perm=9999, by="terms")
+permanova2 <- adonis2(adonis_otu ~ ForestArea + Type + Morph + Variety, data = adonis_dat, perm=9999, by="terms")
 permanova2
 
 write.csv(permanova2, "output/eDNA_adonis3.csv")
@@ -154,25 +154,30 @@ veg_nmds_result2 <- nmds_result_filt %>%
 nmds_veg_comb <- left_join(veg_nmds_result2, dat2, by = "Samples")
 lm_df <- nmds_veg_comb #nmds_result_comb
 
-seedset_lm <- lm(SeedSet ~ NMDS1 + NMDS2, data = lm_df)
+seedset_lm <- lm(SeedSet ~ NMDS1 + NMDS2, data = nmds_veg_comb)
 summary(seedset_lm)
 seedset_anova <- anova(seedset_lm)
 seedset_anova # Nothing
 
 ### Dev Rate Linear Model
-devrate_lm <- lm(DevRate ~ NMDS1 + NMDS2, data = lm_df)
+devrate_lm <- lm(DevRate ~ NMDS1 + NMDS2, data = nmds_veg_comb)
 summary(devrate_lm) # NMDS2 Negatively Assoc. with Dev Rate
 devrate_anova <- anova(devrate_lm)
 devrate_anova # NMDS2 Negatively Assoc. with Dev Rate !!!!!
 
-devrate_NMDS2 <- ggplot(lm_df, aes(x = NMDS2, y = DevRate)) +
+devrate_NMDS2 <- ggplot(nmds_veg_comb, aes(x = NMDS2, y = DevRate)) +
   geom_point(size = .5, stroke = 1)
+devrate_NMDS2
 
 ### Herbiv Linear Model
-herbiv_lm <- lm(HerbivRate ~ NMDS1 + NMDS2, data = lm_df)
+herbiv_lm <- lm(HerbivRate ~ NMDS1 + NMDS2, data = nmds_veg_comb)
 summary(herbiv_lm)
 herbiv_anova <- anova(herbiv_lm)
-herbiv_anova # Nothing
+herbiv_anova # NMDS2 Positively Assoc with Dev Rate !!!!
+
+herbiv_NMDS2 <- ggplot(nmds_veg_comb, aes(x = NMDS2, y = HerbivRate)) +
+  geom_point(size = .5, stroke = 1)
+herbiv_NMDS2
 
 # Misc ======
 #final phyloseq ordin_filt
