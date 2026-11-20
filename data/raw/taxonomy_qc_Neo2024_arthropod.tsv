@@ -1,0 +1,140 @@
+query	superkingdom	kingdom	subkingdom	phylum	subphylum	superclass	class	subclass	infraclass	cohort	superorder	order	suborder	infraorder	parvorder	superfamily	family	subfamily	tribe	subtribe	genus	subgenus	species
+ASV1	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Dothideomycetes	Dothideomycetidae				Cladosporiales					Cladosporiaceae				Cladosporium		
+ASV2	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera		Hemiptera	Heteroptera	Cimicomorpha		Cimicoidea	Miridae	Mirinae	Mirini		Apolygus		
+ASV3	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Dothideomycetes	Dothideomycetidae				Cladosporiales					Cladosporiaceae				Cladosporium		
+ASV4	Eukaryota	Fungi	Dikarya	Basidiomycota	Ustilaginomycotina		Ustilaginomycetes					Ustilaginales					Ustilaginaceae						
+ASV5	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV6	Eukaryota	Metazoa		Arthropoda	Chelicerata		Arachnida	Acari			Acariformes	Sarcoptiformes	Oribatida	Brachypylina									
+ASV7	Eukaryota																						
+ASV8	Eukaryota	Fungi	Dikarya	Basidiomycota	Ustilaginomycotina																		
+ASV9	Eukaryota			Oomycota																			
+ASV10	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Chrysomeloidea	Chrysomelidae	Galerucinae	Sermylini		Agelastica		Agelastica coerulea
+ASV11	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Chrysomeloidea	Chrysomelidae	Galerucinae	Sermylini		Agelastica		Agelastica coerulea
+ASV12	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV13																							
+ASV14	Eukaryota	Metazoa		Arthropoda	Chelicerata		Arachnida	Acari			Acariformes	Sarcoptiformes	Oribatida	Brachypylina									
+ASV15	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV16	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Dothideomycetes	Dothideomycetidae				Cladosporiales					Cladosporiaceae				Cladosporium		
+ASV17	Eukaryota	Metazoa		Chordata	Craniata	Sarcopterygii	Mammalia				Euarchontoglires	Primates	Haplorrhini	Simiiformes	Catarrhini	Hominoidea	Hominidae	Homininae			Homo		Homo sapiens
+ASV18	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera		Thysanoptera	Terebrantia			Thripoidea	Thripidae	Thripinae			Thrips		
+ASV19	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Chrysomeloidea	Chrysomelidae	Galerucinae	Sermylini		Agelastica		Agelastica coerulea
+ASV20	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Chrysomeloidea	Chrysomelidae	Galerucinae	Sermylini		Agelastica		Agelastica coerulea
+ASV21	Eukaryota	Fungi	Dikarya	Basidiomycota	Ustilaginomycotina																		
+ASV22	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Dothideomycetes	Dothideomycetidae				Cladosporiales					Cladosporiaceae				Cladosporium		
+ASV23	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Dothideomycetes	Dothideomycetidae				Cladosporiales					Cladosporiaceae				Cladosporium		
+ASV24	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV25	Eukaryota																						
+ASV26	Eukaryota	Metazoa		Arthropoda																			
+ASV27	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV28	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Curculionoidea	Curculionidae	Ceutorhynchinae			Rhinoncus		
+ASV29	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV30	Eukaryota	Fungi	Dikarya	Ascomycota																			
+ASV31	Eukaryota																						
+ASV32	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV33	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Leotiomycetes																
+ASV34	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Dothideomycetes	Dothideomycetidae				Cladosporiales					Cladosporiaceae				Cladosporium		
+ASV35	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV36	Eukaryota			Oomycota								Peronosporales					Peronosporaceae				Peronospora		
+ASV37	Eukaryota	Metazoa		Arthropoda	Chelicerata		Arachnida	Acari			Acariformes	Trombidiformes											
+ASV38	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV39	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera	Psocodea	Psocoptera											
+ASV40	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Sordariomycetes	Hypocreomycetidae				Glomerellales					Plectosphaerellaceae						
+ASV41	Eukaryota																						
+ASV42																							
+ASV43	Eukaryota	Metazoa		Arthropoda	Chelicerata		Arachnida	Acari			Acariformes	Trombidiformes											
+ASV44	Eukaryota																						
+ASV45	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Diptera	Nematocera	Bibionomorpha		Sciaroidea	Cecidomyiidae						
+ASV46	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV47	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV48	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota	Amphiesmenoptera	Lepidoptera											
+ASV49	Eukaryota	Fungi	Dikarya	Basidiomycota	Ustilaginomycotina		Ustilaginomycetes					Ustilaginales					Ustilaginaceae						
+ASV50	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Diptera	Nematocera										
+ASV51	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Sordariomycetes																
+ASV52	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV53	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota	Amphiesmenoptera	Lepidoptera											
+ASV54	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV55																							
+ASV56	Eukaryota																						
+ASV57	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV58	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV59	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV60	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Curculionoidea	Curculionidae	Ceutorhynchinae			Rhinoncus		
+ASV61	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV62	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV63	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Diptera	Brachycera	Muscomorpha		Oestroidea	Sarcophagidae	Sarcophaginae			Sarcophaga		
+ASV64	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Sordariomycetes	Hypocreomycetidae				Glomerellales					Plectosphaerellaceae						
+ASV65	Eukaryota																						
+ASV66	Eukaryota	Fungi	Dikarya	Basidiomycota																			
+ASV67	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV68	Eukaryota	Metazoa		Arthropoda	Chelicerata		Arachnida	Acari			Acariformes	Trombidiformes	Prostigmata			Eriophyoidea	Eriophyidae						
+ASV69	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV70	Eukaryota	Fungi	Dikarya	Basidiomycota																			
+ASV71	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV72	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera		Thysanoptera	Tubulifera			Phlaeothripoidea	Phlaeothripidae	Phlaeothripinae			Haplothrips		
+ASV73	Eukaryota	Fungi	Dikarya	Basidiomycota	Pucciniomycotina		Pucciniomycetes					Pucciniales					Melampsoraceae				Melampsora		
+ASV74	Eukaryota	Metazoa		Chordata	Craniata	Sarcopterygii	Mammalia				Euarchontoglires	Primates	Haplorrhini	Simiiformes	Catarrhini								
+ASV75	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV76	Eukaryota	Metazoa		Arthropoda	Hexapoda		Collembola					Symphypleona					Bourletiellidae						
+ASV77	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV78	Eukaryota																						
+ASV79	Eukaryota	Metazoa		Arthropoda	Chelicerata		Arachnida	Acari			Acariformes	Trombidiformes	Prostigmata			Eriophyoidea	Eriophyidae	Eriophyinae	Aceriini		Aceria		Aceria tosichella
+ASV80	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Diptera	Nematocera	Culicomorpha		Chironomoidea	Chironomidae						
+ASV81	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Sordariomycetes																
+ASV82	Eukaryota	Metazoa		Rotifera			Eurotatoria	Bdelloidea															
+ASV83	Eukaryota	Metazoa		Arthropoda	Chelicerata		Arachnida	Acari			Acariformes	Trombidiformes											
+ASV84	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera		Hemiptera	Sternorrhyncha	Aphidomorpha		Aphidoidea	Aphididae	Aphidinae	Aphidini		Aphis	Aphis	
+ASV85	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV86	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV87	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV88	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Diptera	Nematocera	Bibionomorpha		Sciaroidea	Cecidomyiidae						
+ASV89	Eukaryota																						
+ASV90	Eukaryota																						
+ASV91	Eukaryota																						
+ASV92	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Diptera	Nematocera										
+ASV93	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV94	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota													
+ASV95	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Chrysomeloidea	Chrysomelidae	Galerucinae	Alticini	Chaetocnemina	Chaetocnema		
+ASV96	Eukaryota			Oomycota																			
+ASV97	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Chrysomeloidea	Chrysomelidae	Galerucinae	Alticini		Phyllotreta		
+ASV98	Eukaryota																						
+ASV99	Eukaryota																						
+ASV100	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Leotiomycetes																
+ASV101	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV102	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Coleoptera	Polyphaga	Cucujiformia		Chrysomeloidea	Chrysomelidae	Galerucinae	Alticini		Phyllotreta		
+ASV103	Eukaryota	Metazoa		Chordata	Craniata	Sarcopterygii	Mammalia				Euarchontoglires	Primates	Haplorrhini	Simiiformes	Catarrhini	Hominoidea	Hominidae	Homininae			Homo		Homo sapiens
+ASV104	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV105	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Diptera	Brachycera	Muscomorpha		Syrphoidea	Syrphidae	Syrphinae					
+ASV106	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV107	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV108	Eukaryota	Metazoa		Chordata	Craniata	Sarcopterygii	Mammalia				Euarchontoglires	Primates	Haplorrhini	Simiiformes	Catarrhini	Hominoidea	Hominidae	Homininae			Homo		Homo sapiens
+ASV109	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV110	Eukaryota																						
+ASV111	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV112	Eukaryota																						
+ASV113	Eukaryota	Metazoa																					
+ASV114	Eukaryota																						
+ASV115	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota													
+ASV116	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Endopterygota		Diptera	Nematocera	Culicomorpha		Chironomoidea	Chironomidae	Tanypodinae	Pentaneurini		Rheopelopia		Rheopelopia joganflava
+ASV117	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera	Psocodea	Psocoptera											
+ASV118	Eukaryota	Metazoa		Arthropoda	Chelicerata		Arachnida	Acari			Acariformes	Sarcoptiformes											
+ASV119	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera														
+ASV120	Eukaryota	Metazoa		Arthropoda																			
+ASV121	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV122	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV123	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera		Hemiptera	Auchenorrhyncha	Cicadomorpha		Membracoidea	Cicadellidae	Typhlocybinae	Empoascini		Empoasca		Empoasca decipiens
+ASV124	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina																		
+ASV125	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera		Hemiptera	Sternorrhyncha	Aphidomorpha		Aphidoidea	Aphididae	Aphidinae	Macrosiphini		Aulacorthum		Aulacorthum solani
+ASV126	Eukaryota																						
+ASV127	Eukaryota			Oomycota																			
+ASV128	Eukaryota																						
+ASV129	Eukaryota	Metazoa		Chordata	Craniata																		
+ASV130	Eukaryota																						
+ASV131	Eukaryota																						
+ASV132	Eukaryota	Metazoa		Chordata	Craniata	Sarcopterygii	Mammalia				Euarchontoglires	Primates	Haplorrhini	Simiiformes	Catarrhini	Hominoidea	Hominidae	Homininae			Homo		Homo sapiens
+ASV133	Eukaryota																						
+ASV134	Eukaryota	Fungi	Dikarya	Ascomycota	Pezizomycotina		Sordariomycetes																
+ASV135	Eukaryota																						
+ASV136	Eukaryota																						
+ASV137	Eukaryota																						
+ASV138	Eukaryota			Oomycota																			
+ASV139	Eukaryota	Metazoa		Arthropoda	Hexapoda		Insecta	Pterygota	Neoptera	Paraneoptera		Hemiptera	Heteroptera	Cimicomorpha		Cimicoidea	Miridae	Mirinae	Mirini		Apolygus		
