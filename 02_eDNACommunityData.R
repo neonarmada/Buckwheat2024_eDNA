@@ -1,6 +1,6 @@
 # R Script v.12
 # Library Call =====
-p_load(ggplot2, tidyverse, vegan, phyloseq, lme4, MuMIn, styler, RColorBrewer, viridis)
+p_load(ggplot2, tidyverse, vegan, phyloseq, lme4, MuMIn, styler, RColorBrewer, viridis, piecewiseSEM, reformulas, multcomp, DiagrammeR)
 library(sf)
 library(ggsignif)
 library(ggsci)
@@ -9,7 +9,7 @@ library(ggsci)
 set.seed(123)
 source("R/01_load-data_functions.R")
 source("R/02_clean-data_functions.R")
-source("R/04_generate-figs_functions.R")
+source("R/03_exploratory-analysis_functions.R")
 
 # Importing OTU Table
 community_otu <- trimSampleID(community_reads)
@@ -20,6 +20,8 @@ community_tax <- arthroFilter(edna_taxon)
 tax <- tax_table(community_tax)
 
 # Importing DAT Table
+# community_dat <- replace_site(community_info)
+# dat <- sample_data(community_dat)
 dat <- sample_data(community_info)
 
 # Combine into phyloseq object
@@ -27,7 +29,7 @@ buckwheat_raw <- phyloseq(otu, tax, dat)
 buckwheat_raw
 
 # Phyloseq Pre-Processing
-buckwheat_filtered <- clean_phyloseq(buckwheat_raw, contaminated_samples) 
+buckwheat_filtered <- clean_phyloseq(buckwheat_raw, contaminated_samples)
 
 # Exploratory Analysis =====
 ## NMDS Ordination ======
@@ -49,20 +51,20 @@ adonis_dat <- sample_data(buckwheat_filtered) %>%
   data.frame()
 
 # ANOVA from community data matrix
-otu_anova <- adonis2(adonis_otu ~ ForestArea + Type + Morph + Variety, data = adonis_dat, perm = 9999, by = "terms")
-otu_anova #variety not so accurate maybe?
+otu_anova <- adonis2(adonis_otu ~ ForestArea + Variety + Type + Morph, data = adonis_dat, perm = 9999, by = "terms")
+otu_anova
 
 # ANOSIM from community data matrix
-anosim(adonis_otu, adonis_dat$ForestArea, distance = "bray", perm = 9999)
-anosim(adonis_otu, adonis_dat$Type, distance = "bray", perm = 9999)
-anosim(adonis_otu, adonis_dat$Morph, distance = "bray", perm = 9999)
-anosim(adonis_otu, adonis_dat$Variety, distance = "bray", perm = 9999)
+# anosim(adonis_otu, adonis_dat$ForestArea, distance = "bray", perm = 9999)
+# anosim(adonis_otu, adonis_dat$Type, distance = "bray", perm = 9999)
+# anosim(adonis_otu, adonis_dat$Morph, distance = "bray", perm = 9999)
+# anosim(adonis_otu, adonis_dat$Variety, distance = "bray", perm = 9999)
 
 # Linear Model for NMDS1&2 (I dont know if this is correct or not)
 lm(NMDS1 ~ ForestArea + Type + Morph + Variety, data = nmds_scrs_comb) %>%
   anova()
 lm(NMDS2 ~ ForestArea + Type + Morph + Variety, data = nmds_scrs_comb) %>%
-  anova() #NMDS2 significantly influences ForestArea & Type
+  anova() # NMDS2 significantly influences ForestArea & Type
 
 ## Yield/Herbiv x Community ================
 ### Seed Set Linear Model
@@ -72,16 +74,22 @@ seedset_anova <- anova(seedset_lm)
 seedset_anova # NMDS1 assoc w. seedset sometimes depending on set.seed() value
 
 ### Dev Rate Linear Model
-devrate_lm <- lm(DevRate ~ NMDS1 + NMDS2, data = nmds_scrs_comb)
-summary(devrate_lm) 
+devrate_lm <- lm(DevRate ~ Variety + NMDS1 + NMDS2, data = nmds_scrs_comb)
+summary(devrate_lm)
 devrate_anova <- anova(devrate_lm)
 devrate_anova # NMDS2 Negatively Assoc. with Dev Rate !!!!!
 
 ### Herbiv Linear Model
-herbiv_lm <- lm(HerbivRate ~ NMDS1 + NMDS2, data = nmds_scrs_comb)
+herbiv_lm <- lm(HerbivRate ~ Variety + NMDS1 + NMDS2, data = nmds_scrs_comb)
 summary(herbiv_lm)
 herbiv_anova <- anova(herbiv_lm)
 herbiv_anova # NMDS2 Positively Assoc with herbiv Rate !!!!
+
+## Structural Equation Modelling ====
+fit <- nmds_scrs_comb %>%
+  eDNA_model()
+summary(fit)
+plot(fit)
 
 # Data Visualisation ====
 # Convex Hull (adding the polygon shape to NMDS)
@@ -93,8 +101,8 @@ nmds_hull <- nmds_scrs_comb %>%
 nmds_plot <- ggplot(nmds_scrs_comb, aes(x = NMDS1, y = NMDS2)) +
   geom_point(aes(fill = Site), shape = 21, size = 3, stroke = 0.7) +
   geom_polygon(data = nmds_hull, alpha = 0.2, aes(fill = Site, colour = Site)) +
-  scale_fill_viridis(end=0.9,direction=-1,option="magma",discrete = T) +
-  scale_colour_viridis(end=0.9,direction=-1,option="magma",discrete = T) +
+  scale_fill_viridis(end = 0.9, direction = -1, option = "magma", discrete = T) +
+  scale_colour_viridis(end = 0.9, direction = -1, option = "magma", discrete = T) +
   theme_bw(base_size = 28) +
   theme(
     axis.text.x = element_text(colour = "black"),
